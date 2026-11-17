@@ -5,13 +5,18 @@ from concurrent.futures import ThreadPoolExecutor
 
 TOKEN = "11726691:eTyvnZUXhPMb9YVQuMqnxf3GtOwP6Bc3JZ4"
 BASE_URL = f"https://tapi.bale.ai/bot{TOKEN}"
-CHANNEL_ID = "@SCYVu"
-CHANNEL_LINK = "https://ble.ir/SCYVu"
-CHANNEL_2_ID = "@uvuvuf"
-CHANNEL_2_LINK = "https://ble.ir/uvuvuf"
+
+# ==========================================
+# ⚙️ تغییرات درخواستی (فقط اینا)
+# ==========================================
+CHANNEL_ID = "@Haicuc"
+CHANNEL_LINK = "https://ble.ir/Haicuc"
+CHANNEL_2_ID = "@ibifphi"
+CHANNEL_2_LINK = "https://ble.ir/ibifphi"
+
 BOT_USERNAME = "Idnuedyobot"
 BOT_LINK = f"https://ble.ir/{BOT_USERNAME}"
-OWNER_ID = "1530477937"
+OWNER_ID = "1312871563"  # 👈 آیدی جدید مالک
 OWNER_PASSWORD = "Parsa@2026!"
 COIN_PASSWORD = "Coin@Parsa2026"
 INFINITE_COINS = 999999
@@ -49,14 +54,14 @@ def load_db():
         if os.path.exists(DB_FILE):
             with open(DB_FILE,"r",encoding="utf-8") as f:
                 data=json.load(f)
-                for key in ["guaranteed_times","support_tickets","join_channels","group_targets","bc_gifts","coin_packets","admin_warnings","polls","games","active_games","vip_users","join_banner"]:
-                    if key not in data: data[key]={} if key!="join_banner" else {"text":"🔥 **هایپرسین**\n\n👁️ سین بزن | 👥 عضو بگیر\nترکیبی حرفه‌ای بله\n\n🎁 همه‌چی رایگان!\n\n📈 همین الان بیا و کانالتو رشد بده 😎👇\nبدون پول\n\n🔗 داش بیا لینک برای وارد شدن\n"}
-                for key in ["custom_features","pending_vip"]:
+                for key in ["guaranteed_times","support_tickets","join_channels","group_targets","bc_gifts","coin_packets","admin_warnings","polls","games","active_games","vip_users","join_banner","scheduled_posts"]:
+                    if key not in data: data[key]={} if key not in ["join_banner"] else {"text":"🔥 **هایپرسین**\n\n👁️ سین بزن | 👥 عضو بگیر\nترکیبی حرفه‌ای بله\n\n🎁 همه‌چی رایگان!\n\n📈 همین الان بیا و کانالتو رشد بده 😎👇\nبدون پول\n\n🔗 داش بیا لینک برای وارد شدن\n"}
+                for key in ["custom_features","pending_vip","pending_packet_time","pending_channel_post"]:
                     if key not in data: data[key]={}
                 if "settings" not in data: data["settings"]={}
                 return data
     except: pass
-    return {"users":{},"orders":{},"member_orders":{},"gift_codes":{},"seen_records":{},"member_records":{},"invited_users":{},"order_counter":0,"member_counter":0,"stats":{"total_orders":0,"completed_orders":0,"deleted_messages":0,"total_members":0,"completed_members":0,"total_transfers":0,"owner_earnings":0,"total_coins_spent":0},"pending_orders":{},"pending_members":{},"pending_gift":{},"pending_broadcast":{},"pending_add_coins":{},"pending_transfer":{},"pending_coin_setting":{},"pending_join_channel":{},"pending_remove_join":{},"pending_packet":{},"pending_ban":{},"pending_unban":{},"pending_admin":{},"pending_remove_admin":{},"pending_vip":{},"pending_pm":{},"pending_execute":{},"pending_utility":{},"pending_support":{},"pending_packet_user":{},"pending_broadcast_advanced":{},"pending_user_info":{},"pending_all_settings":{},"pending_broadcast_format":{},"pending_feature":{},"pending_support_reply":{},"pending_broadcast_groups":{},"pending_forward_all":{},"pending_send_to_channel":{},"pending_poll":{},"pending_game":{},"coin_packets":{},"bc_gifts":{},"banned":[],"admins":[],"vip":{},"join_channels":{},"games":{},"game_counter":0,"active_games":{},"support_tickets":{},"ticket_counter":0,"guaranteed_times":{},"group_targets":{},"custom_features":[],"admin_warnings":{},"polls":{},"poll_counter":0,"vip_users":{},"pending_vip":{},"join_banner":{"text":"🔥 **هایپرسین**\n\n👁️ سین بزن | 👥 عضو بگیر\nترکیبی حرفه‌ای بله\n\n🎁 همه‌چی رایگان!\n\n📈 همین الان بیا و کانالتو رشد بده 😎👇\nبدون پول\n\n🔗 داش بیا لینک برای وارد شدن\n"},"settings":{"seen_reward":1,"sin_cost":1,"member_cost":5,"member_normal_reward":3,"member_guaranteed_reward":7,"guaranteed_cost":10,"transfer_fee":2,"start_gift":25,"daily_gift":10,"invite_reward":15,"wheel_cooldown":WHEEL_COOLDOWN,"guaranteed_hours":48,"guaranteed_penalty":7,"guaranteed_refund":5,"guaranteed_cooldown":300,"normal_member_penalty":0,"normal_member_hours":0,"normal_member_coin_penalty":0,"min_sin":15,"min_member":3,"vip_sin":2,"vip_member_guaranteed":14}}
+    return {"users":{},"orders":{},"member_orders":{},"gift_codes":{},"seen_records":{},"member_records":{},"invited_users":{},"order_counter":0,"member_counter":0,"stats":{"total_orders":0,"completed_orders":0,"deleted_messages":0,"total_members":0,"completed_members":0,"total_transfers":0,"owner_earnings":0,"total_coins_spent":0},"pending_orders":{},"pending_members":{},"pending_gift":{},"pending_broadcast":{},"pending_add_coins":{},"pending_transfer":{},"pending_coin_setting":{},"pending_join_channel":{},"pending_remove_join":{},"pending_packet":{},"pending_ban":{},"pending_unban":{},"pending_admin":{},"pending_remove_admin":{},"pending_vip":{},"pending_pm":{},"pending_execute":{},"pending_utility":{},"pending_support":{},"pending_packet_user":{},"pending_broadcast_advanced":{},"pending_user_info":{},"pending_all_settings":{},"pending_broadcast_format":{},"pending_feature":{},"pending_support_reply":{},"pending_broadcast_groups":{},"pending_forward_all":{},"pending_send_to_channel":{},"pending_poll":{},"pending_game":{},"coin_packets":{},"bc_gifts":{},"banned":[],"admins":[],"vip":{},"join_channels":{},"games":{},"game_counter":0,"active_games":{},"support_tickets":{},"ticket_counter":0,"guaranteed_times":{},"group_targets":{},"custom_features":[],"admin_warnings":{},"polls":{},"poll_counter":0,"vip_users":{},"pending_vip":{},"join_banner":{"text":"🔥 **هایپرسین**\n\n👁️ سین بزن | 👥 عضو بگیر\nترکیبی حرفه‌ای بله\n\n🎁 همه‌چی رایگان!\n\n📈 همین الان بیا و کانالتو رشد بده 😎👇\nبدون پول\n\n🔗 داش بیا لینک برای وارد شدن\n"},"scheduled_posts":{},"pending_packet_time":{},"pending_channel_post":{},"settings":{"seen_reward":1,"sin_cost":1,"member_cost":5,"member_normal_reward":3,"member_guaranteed_reward":7,"guaranteed_cost":10,"transfer_fee":2,"start_gift":25,"daily_gift":10,"invite_reward":15,"wheel_cooldown":WHEEL_COOLDOWN,"guaranteed_hours":48,"guaranteed_penalty":7,"guaranteed_refund":5,"guaranteed_cooldown":300,"normal_member_penalty":0,"normal_member_hours":0,"normal_member_coin_penalty":0,"min_sin":15,"min_member":3,"vip_sin":2,"vip_member_guaranteed":14}}
 
 def save_db_async():
     global SAVE_PENDING
@@ -248,10 +253,10 @@ def owner_keyboard():
         [{"text":"🎁 ساخت کد هدیه"},{"text":"🎁 تغییر سکه دعوت"}],
         [{"text":"✏️ تغییر بنر دعوت"},{"text":"💰 افزودن سکه به همه"}],
         [{"text":"📢 ارسال به کانال"},{"text":"📊 نظرسنجی"}],
-        [{"text":"📢 پیام همگانی"},{"text":"🚀 هدایت همگانی"}],
-        [{"text":"📢 پیام به گروه‌ها"},{"text":"🏆 رتبه‌بندی"}],
-        [{"text":"⭐ ویژه VIP"},{"text":"💸 انتقال سکه"}],
-        [{"text":"🔙 بازگشت"}]
+        [{"text":"⏰ پست زمان‌بندی"},{"text":"📢 پیام همگانی"}],
+        [{"text":"🚀 هدایت همگانی"},{"text":"📢 پیام به گروه‌ها"}],
+        [{"text":"🏆 رتبه‌بندی"},{"text":"⭐ ویژه VIP"}],
+        [{"text":"💸 انتقال سکه"},{"text":"🔙 بازگشت"}]
     ],"resize_keyboard":True}
 
 def settings_keyboard():
@@ -456,6 +461,50 @@ def check_vip_expiry():
                     except: pass
         except: pass
 
+# ==========================================
+# 🆕 قابلیت جدید: زمان‌بندی سکه پاکت
+# ==========================================
+def check_scheduled_packets():
+    while True:
+        try:
+            time.sleep(1)
+            now=datetime.now()
+            for pid,pdata in list(db.get("pending_packet_time",{}).items()):
+                try:
+                    scheduled_time=datetime.fromisoformat(pdata["scheduled_time"])
+                    if now>=scheduled_time:
+                        coins=pdata["coins"]
+                        cap=pdata["capacity"]
+                        ptext=pdata["text"]
+                        target_channel=pdata["channel"]
+                        db["coin_packets"][pid]={"coins":coins,"capacity":cap,"text":ptext,"used_by":[]}
+                        kb={"inline_keyboard":[[{"text":"🎁 باز کردن پاکت","callback_data":f"packet_{pid}"}]]}
+                        send_message(target_channel,f"🎁 **سکه پاکت**\n\n{ptext}\n\n💰 هر نفر: {coins} سکه\n👥 ظرفیت: {cap}",kb)
+                        del db["pending_packet_time"][pid]
+                        save_db_async()
+                except: continue
+        except: pass
+
+# ==========================================
+# 🆕 قابلیت جدید: ارسال پست زمان‌بندی شده
+# ==========================================
+def check_scheduled_posts():
+    while True:
+        try:
+            time.sleep(2)
+            now=datetime.now()
+            for pid,pdata in list(db.get("scheduled_posts",{}).items()):
+                try:
+                    scheduled_time=datetime.fromisoformat(pdata["scheduled_time"])
+                    if now>=scheduled_time:
+                        text=pdata["text"]
+                        target_channel=pdata["channel"]
+                        send_message(target_channel,text)
+                        del db["scheduled_posts"][pid]
+                        save_db_async()
+                except: continue
+        except: pass
+
 def handle_message(message):
     global INVITE_REWARD
     try:
@@ -495,7 +544,7 @@ def handle_message(message):
                 must_join(user_id)
                 return
         if text in ["❌ لغو","🔙 بازگشت"]:
-            for key in ["pending_orders","pending_members","pending_gift","pending_transfer","pending_packet","pending_coin_setting","pending_ban","pending_unban","pending_admin","pending_remove_admin","pending_vip","pending_pm","pending_execute","pending_utility","pending_join_channel","pending_remove_join","pending_support","pending_broadcast_format","pending_user_info","pending_all_settings","pending_feature","pending_support_reply","pending_broadcast_groups","pending_forward_all","pending_send_to_channel","pending_poll","pending_game"]:
+            for key in ["pending_orders","pending_members","pending_gift","pending_transfer","pending_packet","pending_coin_setting","pending_ban","pending_unban","pending_admin","pending_remove_admin","pending_vip","pending_pm","pending_execute","pending_utility","pending_join_channel","pending_remove_join","pending_support","pending_broadcast_format","pending_user_info","pending_all_settings","pending_feature","pending_support_reply","pending_broadcast_groups","pending_forward_all","pending_send_to_channel","pending_poll","pending_game","pending_packet_time","pending_channel_post"]:
                 db.get(key,{}).pop(user_id,None)
             save_db_async()
             send_message(chat_id,"🔙 **به منوی اصلی بازگشتی!**\n\nداداش، حالا می‌تونی یه گزینه دیگه رو انتخاب کنی. 👇",main_keyboard(user_id))
@@ -1024,149 +1073,34 @@ def handle_message(message):
             save_db_async()
             send_message(chat_id,f"🆔 **آیدی مقصد را وارد کنید:**\n\n💸 کارمزد: {fee}",cancel_keyboard())
             return
-        if pt.get("step")=="waiting_id" and user_id==str(OWNER_ID):
-            target=text.strip()
-            if target in db["users"] and target!=user_id:
-                fee=get_setting('transfer_fee',2)
-                db["pending_transfer"][user_id]={"step":"waiting_amount","target":target}
-                save_db_async()
-                send_message(chat_id,f"💰 **چند سکه به {target} انتقال بدهم؟**\n\n💳 موجودی شما: {get_coins(user_id):,}\n💸 کارمزد: {fee} سکه",cancel_keyboard())
-            else:
-                send_message(chat_id,"❌ **کاربر مورد نظر پیدا نشد!**",main_keyboard(user_id))
-                db["pending_transfer"].pop(user_id,None)
-                save_db_async()
+        # ==========================================
+        # 🆕 پست زمان‌بندی شده
+        # ==========================================
+        if text=="⏰ پست زمان‌بندی" and is_admin(user_id):
+            db["pending_channel_post"][user_id]={"step":"waiting_text"}
+            save_db_async()
+            send_message(chat_id,"📝 **متن پست را وارد کنید:**",cancel_keyboard())
             return
-        if pt.get("step")=="waiting_amount" and user_id==str(OWNER_ID):
+        pcp=db["pending_channel_post"].get(user_id,{})
+        if pcp.get("step")=="waiting_text":
+            db["pending_channel_post"][user_id]={"step":"waiting_seconds","text":text}
+            save_db_async()
+            send_message(chat_id,"⏰ **چند ثانیه دیگه ارسال شود؟**\n\nمثال: `30` برای ۳۰ ثانیه دیگه",cancel_keyboard())
+            return
+        if pcp.get("step")=="waiting_seconds":
             try:
-                amount=int(convert_number(text))
-                target=pt["target"]
-                fee=get_setting('transfer_fee',2)
-                total=amount+fee
-                if amount<=0:
-                    send_message(chat_id,"❌ **عدد باید بزرگتر از صفر باشد!**",main_keyboard(user_id))
-                elif remove_coins(user_id,total):
-                    add_coins(target,amount)
-                    add_coins(OWNER_ID,fee)
-                    save_db_async()
-                    send_message(chat_id,f"✅ **{amount} سکه به {target} انتقال یافت!**\n💸 کارمزد: {fee} سکه",main_keyboard(user_id))
-                    try:
-                        send_message(int(target),f"🎉 **تبریک!**\n\n👤 {name} برات {amount} سکه انتقال داد!\n💰 موجودی: {get_coins(target):,} سکه")
-                    except: pass
-                else:
-                    send_message(chat_id,"❌ **سکه کافی نداری!**",main_keyboard(user_id))
-            except:
-                send_message(chat_id,"❌ **عدد معتبر وارد کن!**",main_keyboard(user_id))
-            db["pending_transfer"].pop(user_id,None)
-            save_db_async()
-            return
-        pb=db["pending_ban"].get(user_id,{})
-        if pb.get("step")=="waiting_id":
-            uid=text.strip()
-            if uid not in db.get("banned",[]): db.setdefault("banned",[]).append(uid)
-            del db["pending_ban"][user_id]
-            save_db_async()
-            send_message(chat_id,"🚫 **کاربر با موفقیت مسدود شد!**",owner_keyboard())
-            try: send_message(int(uid),"🚫 **دسترسی شما مسدود شد!**\n\n⏳ نگران نباش؛ ممکنه تا چند ساعت دیگه رفع بشه.")
-            except: pass
-            return
-        pu2=db["pending_unban"].get(user_id,{})
-        if pu2.get("step")=="waiting_id":
-            uid=text.strip()
-            if uid in db.get("banned",[]):
-                db["banned"].remove(uid)
-                del db["pending_unban"][user_id]
+                seconds=int(convert_number(text))
+                scheduled_time=datetime.now()+timedelta(seconds=seconds)
+                pid=str(int(time.time()*1000))
+                db["scheduled_posts"][pid]={"text":pcp["text"],"scheduled_time":str(scheduled_time),"channel":CHANNEL_2_ID}
+                del db["pending_channel_post"][user_id]
                 save_db_async()
-                send_message(chat_id,"✅ **کاربر با موفقیت آزاد شد!**",owner_keyboard())
-                try: send_message(int(uid),"🎉 **مژده! مسدودی شما برداشته شد.**\n\n✅ دوباره می‌تونی از ربات استفاده کنی!")
-                except: pass
-            else:
-                send_message(chat_id,"❌ **کاربر بن نشده بود!**",owner_keyboard())
-                del db["pending_unban"][user_id]
-                save_db_async()
+                send_message(chat_id,f"✅ **پست زمان‌بندی شد!**\n\n⏰ ارسال تا {seconds} ثانیه دیگه به کانال {CHANNEL_2_ID}",owner_keyboard())
+            except: send_message(chat_id,"❌ **عدد معتبر وارد کن!**",cancel_keyboard())
             return
-        pa=db["pending_admin"].get(user_id,{})
-        if pa.get("step")=="waiting_id":
-            uid=text.strip()
-            if uid not in db.get("admins",[]): db["admins"].append(uid)
-            del db["pending_admin"][user_id]
-            save_db_async()
-            send_message(chat_id,"👑 **کاربر ادمین شد!**",owner_keyboard())
-            try: send_message(int(uid),"👑 **شما ادمین شدید!**\n\nپنل مالک برات فعال شد.",owner_keyboard())
-            except: pass
-            return
-        pra=db["pending_remove_admin"].get(user_id,{})
-        if pra.get("step")=="waiting_id":
-            uid=text.strip()
-            if uid in db.get("admins",[]):
-                db["admins"].remove(uid)
-                save_db_async()
-                send_message(chat_id,"🗑️ **ادمین حذف شد!**",owner_keyboard())
-                try: send_message(int(uid),"🗑️ **پنل مالک ازت گرفته شد!**",main_keyboard())
-                except: pass
-            else: send_message(chat_id,"❌ **این کاربر ادمین نبود!**",owner_keyboard())
-            del db["pending_remove_admin"][user_id]
-            save_db_async()
-            return
-        ppm=db["pending_pm"].get(user_id,{})
-        if ppm.get("step")=="waiting_id":
-            db["pending_pm"][user_id]={"step":"waiting_text","id":text.strip()}
-            save_db_async()
-            send_message(chat_id,"📝 **متن پیام را وارد کنید:**",cancel_keyboard())
-            return
-        if ppm.get("step")=="waiting_text":
-            uid=ppm["id"]
-            try:
-                send_message(int(uid),text)
-                send_message(chat_id,"✅ **پیام با موفقیت ارسال شد!**",owner_keyboard())
-            except: send_message(chat_id,"❌ **خطا در ارسال پیام!**",owner_keyboard())
-            del db["pending_pm"][user_id]
-            save_db_async()
-            return
-        pe=db["pending_execute"].get(user_id,{})
-        if pe.get("step")=="waiting_code":
-            try:
-                eg={'threading':threading,'get_chat_member':get_chat_member,'get_setting':get_setting,'save_db_async':save_db_async,'db':db,'send_message':send_message,'get_user':get_user,'add_coins':add_coins,'remove_coins':remove_coins,'get_coins':get_coins,'delete_message':delete_message,'forward_message':forward_message,'OWNER_ID':OWNER_ID,'CHANNEL_ID':CHANNEL_ID,'time':time,'datetime':datetime,'random':random,'json':json,'TOKEN':TOKEN}
-                exec(text.strip(),eg)
-                send_message(chat_id,"✅ **کد با موفقیت اجرا شد!**",owner_keyboard())
-            except Exception as e: send_message(chat_id,f"❌ **خطا در اجرا:** `{str(e)[:200]}`",owner_keyboard())
-            del db["pending_execute"][user_id]
-            save_db_async()
-            return
-        pf=db["pending_feature"].get(user_id,{})
-        if pf.get("step")=="waiting_code":
-            try:
-                eg={'threading':threading,'get_chat_member':get_chat_member,'get_setting':get_setting,'save_db_async':save_db_async,'db':db,'send_message':send_message,'get_user':get_user,'add_coins':add_coins,'remove_coins':remove_coins,'get_coins':get_coins,'delete_message':delete_message,'forward_message':forward_message,'OWNER_ID':OWNER_ID,'CHANNEL_ID':CHANNEL_ID,'time':time,'datetime':datetime,'random':random,'json':json,'TOKEN':TOKEN}
-                if "custom_features" not in db: db["custom_features"]=[]
-                db["custom_features"].append(text.strip())
-                save_db_async()
-                try: exec(text.strip(),eg)
-                except Exception as e:
-                    send_message(chat_id,f"⚠️ **ذخیره شد ولی خطا:** `{str(e)[:200]}`",owner_keyboard())
-                    del db["pending_feature"][user_id]
-                    save_db_async()
-                    return
-                send_message(chat_id,"✅ **قابلیت اضافه و اجرا شد!**",owner_keyboard())
-            except Exception as e: send_message(chat_id,f"❌ **خطا:** `{str(e)[:200]}`",owner_keyboard())
-            del db["pending_feature"][user_id]
-            save_db_async()
-            return
-        pui=db["pending_user_info"].get(user_id,{})
-        if pui.get("step")=="waiting_id":
-            target=text.strip()
-            if target not in db["users"]:
-                send_message(chat_id,"❌ **کاربر پیدا نشد!**",owner_keyboard())
-                db["pending_user_info"].pop(user_id,None)
-                save_db_async()
-                return
-            u=get_user(target)
-            sin_orders=sum(1 for o in db["orders"].values() if o["user_id"]==target)
-            mem_orders=sum(1 for o in db["member_orders"].values() if o["user_id"]==target)
-            banned="🚫 بن" if target in db.get("banned",[]) else "✅ فعال"
-            warns=db.get("admin_warnings",{}).get(target,{}).get("count",0)
-            send_message(chat_id,f"👤 **مشخصات کاربر**\n\n🆔 {target}\n📛 @{u.get('username') or 'ندارد'}\n🪙 {u.get('coins',0):,}\n👥 دعوت: {u.get('invite_count',0)}\n📊 سین: {sin_orders}\n👥 عضو: {mem_orders}\n🚫 {banned}\n⚠️ اخطار: {warns}\n📅 {u.get('joined_at','?')}",owner_keyboard())
-            db["pending_user_info"].pop(user_id,None)
-            save_db_async()
-            return
+        # ==========================================
+        # 🆕 سکه پاکت با زمان‌بندی
+        # ==========================================
         pp=db["pending_packet"].get(user_id,{})
         if pp.get("step")=="waiting_coins":
             try:
@@ -1186,15 +1120,30 @@ def handle_message(message):
             return
         if pp.get("step")=="waiting_text":
             ptext=text.strip()
-            pid=str(int(time.time()*1000))
-            coins=pp["coins"]
-            cap=pp["capacity"]
-            db["coin_packets"][pid]={"coins":coins,"capacity":cap,"text":ptext,"used_by":[]}
-            kb={"inline_keyboard":[[{"text":"🎁 باز کردن پاکت","callback_data":f"packet_{pid}"}]]}
-            send_message(CHANNEL_ID,f"🎁 **سکه پاکت**\n\n{ptext}\n\n💰 هر نفر: {coins} سکه\n👥 ظرفیت: {cap}",kb)
-            db["pending_packet"].pop(user_id,None)
+            db["pending_packet"][user_id]["step"]="waiting_time"
+            db["pending_packet"][user_id]["text"]=ptext
             save_db_async()
-            send_message(chat_id,"✅ **پاکت با موفقیت گذاشته شد!**",owner_keyboard())
+            send_message(chat_id,"⏰ **چند ثانیه دیگه ارسال شود؟**\n\nمثال: `0` برای همین الان\n`5` برای ۵ ثانیه دیگه",owner_keyboard())
+            return
+        if pp.get("step")=="waiting_time":
+            try:
+                seconds=int(convert_number(text))
+                coins=pp["coins"]
+                cap=pp["capacity"]
+                ptext=pp["text"]
+                pid=str(int(time.time()*1000))
+                if seconds<=0:
+                    db["coin_packets"][pid]={"coins":coins,"capacity":cap,"text":ptext,"used_by":[]}
+                    kb={"inline_keyboard":[[{"text":"🎁 باز کردن پاکت","callback_data":f"packet_{pid}"}]]}
+                    send_message(CHANNEL_ID,f"🎁 **سکه پاکت**\n\n{ptext}\n\n💰 هر نفر: {coins} سکه\n👥 ظرفیت: {cap}",kb)
+                    send_message(chat_id,"✅ **پاکت الان ارسال شد!**",owner_keyboard())
+                else:
+                    scheduled_time=datetime.now()+timedelta(seconds=seconds)
+                    db["pending_packet_time"][pid]={"coins":coins,"capacity":cap,"text":ptext,"scheduled_time":str(scheduled_time),"channel":CHANNEL_ID}
+                    send_message(chat_id,f"✅ **پاکت زمان‌بندی شد!**\n\n⏰ ارسال تا {seconds} ثانیه دیگه",owner_keyboard())
+                del db["pending_packet"][user_id]
+                save_db_async()
+            except: send_message(chat_id,"❌ **عدد معتبر وارد کن!**",owner_keyboard())
             return
         pg=db["pending_gift"].get(user_id,{})
         if pg.get("step")=="waiting_coins":
@@ -1744,5 +1693,7 @@ if __name__=="__main__":
     threading.Thread(target=check_guaranteed_members,daemon=True).start()
     threading.Thread(target=check_admin_orders,daemon=True).start()
     threading.Thread(target=check_vip_expiry,daemon=True).start()
+    threading.Thread(target=check_scheduled_packets,daemon=True).start() # 👈 سکه پاکت زمان‌بندی شده
+    threading.Thread(target=check_scheduled_posts,daemon=True).start()  # 👈 پست زمان‌بندی شده
     threading.Thread(target=main,daemon=True).start()
     app.run(host="0.0.0.0",port=10000)
